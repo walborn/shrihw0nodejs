@@ -1,0 +1,8 @@
+node_modules
+
+store/**/*
+!store/.gitkeep
+!store/images
+
+store/images/*
+!store/images/.gitkeep
