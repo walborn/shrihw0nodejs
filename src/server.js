@@ -15,8 +15,6 @@ app.get('/list', (req, res) => res.json(database.find().map(image => image.toJSO
 
 app.get('/image/:id', (req, res) => {
   const file = database.findOne(req.params.id)
-  // res.header('Content-Type', file.mimeType)
-	// res.header('Content-Disposition', `attachment; filename="${file.name}"`)
 	fs.createReadStream(`${Images}/${file.id}.jpeg`).pipe(res)
 })
 

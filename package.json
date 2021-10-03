@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Service for changing image background.",
   "scripts": {
+    "dev": "nodemon src/index",
     "start": "node src/index",
     "test": "jest"
   },
@@ -15,6 +16,7 @@
     "nanoid": "^3.1.28"
   },
   "devDependencies": {
+    "nodemon": "^2.0.13",
     "supertest": "^6.1.6"
   }
 }
