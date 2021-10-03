@@ -9,17 +9,17 @@ module.exports = class Image {
   constructor(id = nanoid(), createdAt = Date.now(), size = {}) {
     this.id = id
     this.createdAt = createdAt
-    this.fileName = `${this.id}.jpeg`
+    this.name = `${this.id}.jpeg`
     this.size = size
   }
 
   async save(content) {
-    await writeFile(path.resolve(Images, this.fileName), content, 'binary')
-    this.size = sizeOf(path.resolve(Images, this.fileName))
+    await writeFile(path.resolve(Images, this.name), content, 'binary')
+    this.size = sizeOf(path.resolve(Images, this.name))
   }
 
   async remove() {
-    await unlink(path.resolve(Images, this.fileName))
+    await unlink(path.resolve(Images, this.name))
   }
 
   toJSON() {

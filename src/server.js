@@ -2,6 +2,7 @@ const express = require('express')
 const { Images } = require('./config')
 const database = require('./database')
 const Image = require('./image')
+const fs = require('fs')
 
 
 const app = express()
@@ -12,7 +13,12 @@ app.use('/files', express.static(Images))
 
 app.get('/list', (req, res) => res.json(database.find().map(image => image.toJSON())))
 
-app.get('/image/:id', (req, res) => res.json(database.findOne(req.params.id).toJSON()))
+app.get('/image/:id', (req, res) => {
+  const file = database.findOne(req.params.id)
+  // res.header('Content-Type', file.mimeType)
+	// res.header('Content-Disposition', `attachment; filename="${file.name}"`)
+	fs.createReadStream(`${Images}/${file.id}.jpeg`).pipe(res)
+})
 
 app.delete('/image/:id', async (req, res) => {
   const id = await database.remove(req.params.id)
