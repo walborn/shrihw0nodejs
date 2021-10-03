@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Service for changing image background.",
   "scripts": {
-    "start": "node src/server"
+    "start": "node src/index",
+    "test": "jest"
   },
   "author": "Yuzhakov Boris",
   "license": "ISC",
@@ -12,5 +13,8 @@
     "express": "^4.17.1",
     "image-size": "^1.0.0",
     "nanoid": "^3.1.28"
+  },
+  "devDependencies": {
+    "supertest": "^6.1.6"
   }
 }

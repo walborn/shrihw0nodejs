@@ -1,5 +1,5 @@
 const express = require('express')
-const { PORT, Images } = require('./config')
+const { Images } = require('./config')
 const database = require('./database')
 const Image = require('./image')
 
@@ -48,5 +48,4 @@ app.get('/merge', async (req, res) => {
   readableStream.pipe(res)
 })
 
-
-app.listen(PORT, () => console.log(`Server started on http://localhost:${PORT}`))
+module.exports = app
