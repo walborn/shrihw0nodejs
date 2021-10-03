@@ -1,4 +1,4 @@
-# RIB
+# Service for replacing the background of images
 
 Сервис для замены фона у изображений
 - загрузка в сервис изображения в формате `jpeg`
@@ -13,7 +13,7 @@
 - `GET /list` - получить список изображений в формате json (id, размер, дата загрузки)
 - `GET /image/:id` — скачать изображение с заданным id
 - `DELETE /image/:id` — удалить изображение
-- `GET /merge?front=<id>&back=<id>&color=145,54,32&threshold=5` — замена фона у изображения
+- `GET /merge?front=<id>&back=<id>&color=145,54,32&threshold=5` — замена фона у изображения [example](http://localhost:8080/merge?front=UnNeb71EaAEuqdq3a_YhX&back=WwQZ_phRtRxmf6tysAT54&color=200,50,52&threshold=5)
 
 [коды ответов](https://developer.mozilla.org/ru/docs/Web/HTTP/Status)
 

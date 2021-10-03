@@ -23,7 +23,7 @@ class Database extends EventEmitter {
 
       for (let id in dump.images) {
         const image = dump.images[id]
-        this.images[id] = new Image(image.id, image.createdAt)
+        this.images[id] = new Image(image.id, image.createdAt, image.size)
       }
     }
   }
@@ -38,7 +38,7 @@ class Database extends EventEmitter {
 
   async remove(id) {
     const raw = this.images[id]
-    const image = new Image(raw.id, raw.createdAt)
+    const image = new Image(raw.id)
 
     await image.remove()
 
@@ -52,14 +52,14 @@ class Database extends EventEmitter {
   async merge({ front, back, color, threshold }) {
     const Front = createReadStream(`${Images}/${front}.jpeg`)
     const Back = createReadStream(`${Images}/${back}.jpeg`)
-
+    
     return replaceBackground(Front, Back, color.split(','), threshold)
   }
 
   findOne(id) {
     const raw = this.images[id]
     if (!raw) return null
-    return new Image(raw.id, raw.createdAt)
+    return new Image(raw.id, raw.createdAt, raw.size)
   }
 
   find() {
