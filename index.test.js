@@ -31,7 +31,7 @@ test('GET /list', async () => {
     .expect(200)
     .then((response) => {
       // Check type and length
-      const images = response.body?.images
+      const images = response.body
       expect(Array.isArray(images)).toBeTruthy()
       expect(images.length).toEqual(1)
 

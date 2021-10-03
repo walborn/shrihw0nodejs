@@ -10,7 +10,7 @@ app.use(express.json())
 
 app.use('/files', express.static(Images))
 
-app.get('/list', (req, res) => res.json({ images: database.find().map(image => image.toJSON()) }))
+app.get('/list', (req, res) => res.json(database.find().map(image => image.toJSON())))
 
 app.get('/image/:id', (req, res) => res.json(database.findOne(req.params.id).toJSON()))
 
