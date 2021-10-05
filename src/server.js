@@ -1,8 +1,10 @@
 const express = require('express')
+const fs = require('fs')
+const multer  = require('multer')
+
 const { Images } = require('./config')
 const database = require('./database')
 const Image = require('./image')
-const fs = require('fs')
 
 
 const app = express()
@@ -23,29 +25,19 @@ app.delete('/image/:id', async (req, res) => {
   return res.json({ id })
 })
 
-app.post('/upload', async (req, res) => {
-  let body = ''
-  req
-    .on('data', raw => body += raw.toString('binary'))
-    .on('end', async () => {
-      // removing header and footer (`${header}\r\n\r\n` and `\r\n--${boundary}--\r\n`)
-      const headerCorrection = body.indexOf('\r\n\r\n') + 4
-      const contentType = req.headers['content-type']
-      const boundaryStartsWith = 'multipart/form-data; boundary='.length
-      const boundaryCorrection = contentType.length - boundaryStartsWith + 8
-      body = body.slice(headerCorrection, -boundaryCorrection)
+const upload = multer({ storage: multer.memoryStorage() })
 
-      const image = new Image()
-      await database.insert(image, body)
-      return res.json(image.toJSON())
-    })
+app.post('/upload', upload.single('value'), async (req, res) => {
+  const image = new Image()
+  await database.insert(image, req.file.buffer)
+  return res.json(image.toJSON())
 })
 
 app.get('/merge', async (req, res) => {
-  const f = database.findOne(req.query.front).size
-  const b = database.findOne(req.query.back).size
+  const front = database.findOne(req.query.front).size
+  const back = database.findOne(req.query.back).size
 
-  if (f.width !== b.width || f.height !== b.height)
+  if (front.width !== back.width || front.height !== back.height)
     return res.status(400).json({ message: 'Bad Request' })
 
   const readableStream = await database.merge(req.query)

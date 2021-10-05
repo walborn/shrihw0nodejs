@@ -51,10 +51,4 @@ test('GET /image/:id', async () => {
   await request(app)
     .get(`/image/${image.id}`)
     .expect(200)
-    .then(response => response.body)
-    .then(({ id, size, createdAt }) => {
-      expect(id).toBe(image.id)
-      expect(size).toEqual(image.size)
-      expect(createdAt).toBe(image.createdAt)
-    })
 })
